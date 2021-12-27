@@ -13,6 +13,13 @@ class FilmeControllers extends MasterController {
     if(!result.total) return response.status(200).json(result)
     return response.status(200).json(result);
   }
+
+  getToRemove = async (request: Request, response: Response): Promise<any> => {
+    const result = await this.service.getToRemove();
+    if(!result.to_remove) return response.status(200).json(result)
+    return response.status(200).json(result);
+  }
+
 }
 
 export { FilmeControllers };

@@ -68,6 +68,20 @@ class FilmeServices {
     return data;
   }
 
+  async getToRemove(){
+    const data = await prismaClient.filme.findMany({
+      where:{
+        to_remove: true
+      },
+    })
+    if(data.length < 1){
+      const response = {to_remove: false, message:'Sem filmes para remover'}
+      return response;
+    }
+
+   return data;
+  }
+
   
 
   async toRemove(){
@@ -79,8 +93,8 @@ class FilmeServices {
         id:true 
       }
     })
-    if(!data){
-      const response = {deleted: true, message:'Sem filmes para remover'}
+    if(data.length < 1){
+      const response = {to_remove: false ,message:'Sem filmes para remover'}
       return response;
     }
     const id = data.map((obj) => {
