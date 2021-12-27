@@ -1,0 +1,37 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Usuario {
+  id         String @id @default(uuid())
+  email      String 
+  senha      String 
+  tipo       String 
+  name       String
+  cpf        String    @unique
+  telefone   Int
+  updated_at DateTime @default(now())
+  created_at DateTime @default(now())
+}
+
+model Filme {
+   id         String @id @default(uuid())
+   name       String 
+   genero     String 
+   lancamento String 
+   diretor    String
+   autorizado Boolean @default(false)
+   cartaz     Int  
+   to_remove  Boolean @default(false)
+   updated_at DateTime @default(now())
+   created_at DateTime @default(now())
+}
+
+
+
+
