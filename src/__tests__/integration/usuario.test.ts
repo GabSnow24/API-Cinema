@@ -2,8 +2,8 @@ const request = require('supertest')
 const { app } = require('../../app')
 import prismaClient from '../../prisma/index'
 
-describe('Login', () => {
-    it('Shoud login', async () => {
+describe('Usuario', () => {
+    it('Shoud create', async () => {
         const mock_data = {
             name: "Teste Jest",
             email: "teste@jestlab2.com",
@@ -15,17 +15,11 @@ describe('Login', () => {
         const user = await request(app)
         .post('/usuario')
         .send(mock_data)
-        const login = await request(app)
-            .post('/login')
-            .send({
-                email: mock_data.email,
-                senha: mock_data.senha
-            })
         const deleted = await prismaClient.usuario.delete({
             where:{
-                id: login.body.user.id
+                id: user.body.id
             }
         })
-        expect(login.status).toBe(200)
+        expect(user.status).toBe(200)
     })
 })
