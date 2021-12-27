@@ -19,7 +19,7 @@ class UsuarioServices {
     return data;
   }
 
-  async readAll() {
+  async readAll(datas:any) {
     const data = await prismaClient.usuario.findMany({
       orderBy: {
         created_at: "desc"
