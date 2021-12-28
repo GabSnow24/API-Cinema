@@ -5,23 +5,34 @@ import prismaClient from "../prisma";
 class FilmeServices {
 
   async create(data: any) {
-    const filme = await prismaClient.filme.create({
-      data: data,
-    });
-    return filme;
+    try {
+      const filme = await prismaClient.filme.create({
+        data: data,
+      });
+      return filme;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível criar o filme'}
+      return responseError
+    }
   }
 
   async readOne(ID: any) {
-    const data = await prismaClient.filme.findUnique({
-      where: {
-        id: ID,
-      },
-    });
-    return data;
+    try {
+      const data = await prismaClient.filme.findUnique({
+        where: {
+          id: ID,
+        },
+      });
+      return data;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível ler os dados'}
+      return responseError
+    }
   }
 
   async readAll(query?: any) {
-    let { auth = 'true'} = query; 
+    try {
+      let { auth = 'true'} = query; 
     const page = parseInt(query.page) || 1;
     const limit = parseInt(query.limit) || 10;
     const startIndex = (page-1)*limit 
@@ -47,68 +58,92 @@ class FilmeServices {
 
     }
     return response;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível ler os dados'}
+      return responseError
+    }
   }
 
   async update(ID: any, data: any) {
-    const filme = await prismaClient.filme.update({
-      data: data,
-      where: {
-        id: ID
-      },
-    });
-    return filme;
+    try {
+      const filme = await prismaClient.filme.update({
+        data: data,
+        where: {
+          id: ID
+        },
+      });
+      return filme;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível atualizar o usuário'}
+      return responseError
+    }
   }
 
   async delete(ID: any) {
-    const data = await prismaClient.filme.delete({
-      where: {
-        id: ID
-      },
-    });
-    return data;
+    try {
+      const data = await prismaClient.filme.delete({
+        where: {
+          id: ID
+        },
+      });
+      return data;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível deletar o usuário'}
+      return responseError
+    }
   }
 
   async getToRemove(){
-    const data = await prismaClient.filme.findMany({
-      where:{
-        to_remove: true
-      },
-    })
-    if(data.length < 1){
-      const response = {to_remove: false, message:'Sem filmes para remover'}
-      return response;
+    try {
+      const data = await prismaClient.filme.findMany({
+        where:{
+          to_remove: true
+        },
+      })
+      if(data.length < 1){
+        const response = {to_remove: false, message:'Sem filmes para remover'}
+        return response;
+      }
+  
+     return data;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível retornar filmes a serem removidos'}
+      return responseError
     }
-
-   return data;
   }
 
   
 
   async toRemove(){
-    const data = await prismaClient.filme.findMany({
-      where:{
-        to_remove: true
-      },
-      select:{
-        id:true 
+    try {
+      const data = await prismaClient.filme.findMany({
+        where:{
+          to_remove: true
+        },
+        select:{
+          id:true 
+        }
+      })
+      if(data.length < 1){
+        const response = {to_remove: false ,message:'Sem filmes para remover'}
+        return response;
       }
-    })
-    if(data.length < 1){
-      const response = {to_remove: false ,message:'Sem filmes para remover'}
-      return response;
-    }
-    const id = data.map((obj) => {
-      return obj.id 
-    })
-   const deleted = await prismaClient.filme.deleteMany({
-     where:{
-       id:{
-         in: id
+      const id = data.map((obj) => {
+        return obj.id 
+      })
+     const deleted = await prismaClient.filme.deleteMany({
+       where:{
+         id:{
+           in: id
+         }
        }
-     }
-   })
-   const response = {deleted: true, total:deleted}
-   return response;
+     })
+     const response = {deleted: true, total:deleted}
+     return response;
+    } catch (error) {
+      const responseError = { deleted: false, message: 'Não foi possível remover os filmes'}
+      return responseError
+    }
   }
 
 }
