@@ -25,3 +25,5 @@ Copia token retornado e utiliza como Authorization Bearer nas devidas rotas onde
 
 Rota paginada de Filmes 
 Get('/filme?auth=true ou false&page=algum número &limit=algum numero
+
+Os filmes são criados com a autorização setada como false, então caso queira ver algum filme recém criado e não modificado , passe ?auth=false
