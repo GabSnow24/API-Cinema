@@ -14,3 +14,14 @@ Yarn Install
 Setar .env com as variavéis 
 
 Yarn Dev
+
+Cria usuário
+Post('/usuário')
+
+Loga com usuário
+Post('/login')
+
+Copia token retornado e utiliza como Authorization Bearer nas devidas rotas onde os usuários tem permissão
+
+Rota paginada de Filmes 
+Get('/filme?auth=true ou false&page=algum número &limit=algum numero
