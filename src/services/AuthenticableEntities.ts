@@ -9,7 +9,8 @@ import { compareSync } from 'bcryptjs';
 
 class AuthenticableEntities{
     async login(data:any){
-        const { email, senha } = data;
+        try {
+            const { email, senha } = data;
         const user = await prismaClient.usuario.findFirst({
             where:{
                 email
@@ -25,6 +26,10 @@ class AuthenticableEntities{
           })
         const retorno = { auth: true, token: token, user: user };
         return retorno;
+        } catch (error) {
+            const responseError = { deleted: false, message: 'Não foi possível logar', token: null, user:null}
+            return responseError
+        }
     }
 }
        
