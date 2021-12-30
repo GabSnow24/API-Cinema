@@ -11,7 +11,7 @@ class FilmeServices {
       });
       return filme;
     } catch (error) {
-      const responseError = { deleted: false, message: 'Não foi possível criar o filme'}
+      const responseError = { created: false, message: 'Não foi possível criar o filme'}
       return responseError
     }
   }
@@ -25,7 +25,7 @@ class FilmeServices {
       });
       return data;
     } catch (error) {
-      const responseError = { deleted: false, message: 'Não foi possível ler os dados'}
+      const responseError = { read: false, message: 'Não foi possível ler os dados'}
       return responseError
     }
   }
@@ -59,7 +59,7 @@ class FilmeServices {
     }
     return response;
     } catch (error) {
-      const responseError = { deleted: false, message: 'Não foi possível ler os dados'}
+      const responseError = { read: false, message: 'Não foi possível ler os dados'}
       return responseError
     }
   }
@@ -74,7 +74,7 @@ class FilmeServices {
       });
       return filme;
     } catch (error) {
-      const responseError = { deleted: false, message: 'Não foi possível atualizar o usuário'}
+      const responseError = { updated: false, message: 'Não foi possível atualizar o usuário'}
       return responseError
     }
   }

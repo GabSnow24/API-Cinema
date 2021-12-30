@@ -4,10 +4,10 @@ services:
   app:
     environment:
       - SECRET_KEY=flamengo
-      - PORT=3001
-      - HOST=ec2-15-229-7-92.sa-east-1.compute.amazonaws.com
+      - PORT=3000
+      - HOST=ec2-18-228-116-55.sa-east-1.compute.amazonaws.com
     ports:
-      - "80:3001"
+      - "80:3000"
     image: qzzdocker24/apicinema:v1
       
     
